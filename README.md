@@ -72,8 +72,8 @@ chmod u+x nombre_del_script.sh
 chmod g+r nombre_del_script.sh
 # Quitar permiso de ejecución para el propietario
 chmod u-x nombre_del_script.sh
-# Agregar permiso de ejecución a todos
-chmod +x nombre_del_script.sh
+# Agregar permiso de escritura a todos
+chmod +w nombre_del_script.sh
 ```
 
 Los permisos predeterminados de un archivo nuevo vienen dados por la máscara de creación de archivos (umask) del usuario. Se puede utilizar el comando `umask` para ver la configuración actual de la máscara. 
@@ -81,10 +81,88 @@ Los permisos predeterminados de un archivo nuevo vienen dados por la máscara de
 Para que un script de Bash pueda ser ejecutado, es necesario que tenga permisos de ejecución. Le podemos agregar permisos de ejecución con el siguiente comando:
 
 ```bash
+# Agregar permiso de ejecución a todos
 chmod +x nombre_del_script.sh
 ```
 
 ### Cron
+Cron es una herramienta de Linux que permite programar la ejecución de scripts y comandos en momentos específicos. Utiliza un archivo de configuración llamado "crontab" (cron table) donde se definen las tareas programadas.
+
+Para editar el crontab del usuario actual, se utiliza el comando:
+
+```bash
+crontab -e
+```
+
+La sintaxis de una entrada en el crontab es la siguiente:
+
+```
+* * * * * /ruta/al/script
+```
+
+Donde los asteriscos representan:
+
+- Minuto (0-59)
+- Hora (0-23)
+- Día del mes (1-31)
+- Mes (1-12)
+- Día de la semana (0-7) (donde 0 y 7 representan el domingo)
+
+Por ejemplo, para ejecutar un script todos los días a las 2:30 AM, se podría agregar la siguiente línea al crontab:
+
+```
+30 2 * * * /ruta/al/script.sh
+```
+
+Cron ejecuta estos scripts a través del servicio crond, que se ejecuta en segundo plano y verifica periódicamente el crontab en busca de tareas programadas. Por lo que es necesario que este servicio esté en funcionamiento para que las tareas programadas se ejecuten correctamente.
+
+```bash
+# Comprobar el estado de crond
+systemctl status crond
+
+
+# Iniciar el servicio crond
+systemctl start crond
+
+# Habilitar el inicio automático de crond
+systemctl enable crond
+```
+
+Si el servicio no está en funcionamiento o el sistema está apagado en el momento en que una tarea programada debería ejecutarse, esa tarea no se ejecutará. Ademas si el servicio se inicia después de que se perdió la oportunidad de ejecutar la tarea, esta no se ejecutará retroactivamente.
+
+### Systemd
+Systemd es un sistema de gestión de servicios para Linux.
+
+Para crear un servicio en Systemd, se debe crear un archivo en el directorio `/etc/systemd/system/`. Este archivo define cómo se debe iniciar, detener y gestionar el servicio.
+
+Un ejemplo básico de un archivo de unidad para un script de Bash podría ser:
+
+```
+[Unit]
+Description=Mi Script de Bash
+
+[Service]
+ExecStart=/ruta/al/script.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Una vez creado el archivo de unidad, se pueden utilizar los siguientes comandos para gestionar el servicio:
+
+```bash
+# Iniciar el servicio
+systemctl start nombre_del_servicio
+
+# Detener el servicio
+systemctl stop nombre_del_servicio
+
+# Habilitar el inicio automático del servicio
+systemctl enable nombre_del_servicio
+
+# Deshabilitar el inicio automático del servicio
+systemctl disable nombre_del_servicio
+```
 
 
 ## Automatización en Windows

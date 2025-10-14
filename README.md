@@ -163,6 +163,7 @@ systemctl enable nombre_del_servicio
 # Deshabilitar el inicio automático del servicio
 systemctl disable nombre_del_servicio
 ```
-
+### Bash
+Teneis en el archivo "ResumenScripting.pdf" todo lo relativo a este tema.
 
 ## Automatización en Windows

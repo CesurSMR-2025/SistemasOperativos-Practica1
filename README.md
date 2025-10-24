@@ -114,6 +114,8 @@ Por ejemplo, para ejecutar un script todos los días a las 2:30 AM, se podría a
 30 2 * * * /ruta/al/script.sh
 ```
 
+Tambien teneis en el propio archivo de configuración crontab, comentarios que explican su funcionamiento.
+
 Cron ejecuta estos scripts a través del servicio crond, que se ejecuta en segundo plano y verifica periódicamente el crontab en busca de tareas programadas. Por lo que es necesario que este servicio esté en funcionamiento para que las tareas programadas se ejecuten correctamente.
 
 ```bash
@@ -200,4 +202,65 @@ Set-ExecutionPolicy RemoteSigned
 ```
 
 Esto permite la ejecución de scripts locales y de scripts descargados de Internet que estén firmados por un editor confiable.
+
+## Entrega
+### Linux
+- Deberéis crear un script de Bash con el siguiente contenido. Reemplazando las rutas de origen y destino por las que queráis utilizar.
+
+```bash
+#!/bin/bash
+# 1. Carpeta de origen (la que se quiere copiar)
+ORIGEN="/home/__________"
+
+# 2. Carpeta de destino (donde se guardará la copia)
+DESTINO="/home/__________/backup"
+
+# 3. Crear la carpeta de destino si no existe
+if [ ! -d "$DESTINO" ]; then
+    mkdir -p "$DESTINO"
+fi
+
+# 4. Copiar todos los archivos del origen al destino
+cp -r "$ORIGEN"/* "$DESTINO"
+
+# 5. Registrar la fecha y hora del backup en un archivo log
+FECHA=$(date +"%d/%m/%Y %H:%M:%S")
+echo "Copia realizada el $FECHA" >> "$DESTINO/backup_log.txt"
+
+echo "Copia completada correctamente."
+```
+
+- Deberéis guardar este script con el nombre `<nombre>Script.sh`. Donde `<nombre>` es vuestro nombre. Despues le deberéis dar permisos de ejecución.
+- Deberéis programar este script para que se ejecute cada 10 minutos utilizando cron.
+- Debereis entregarme una captura de pantalla en la que se vean los permisos del script, mostrando que tiene permiso de ejecución.
+- Deberéis entregarme una captura de pantalla de la configuración del crontab en la que se vea la línea que habéis añadido para programar el script.
+
+### Windows
+- Deberéis crear un script de PowerShell con el siguiente contenido. Reemplazando las rutas de origen y destino por las que queráis utilizar.
+  
+```powershell
+# 1. Ruta de origen (carpeta que se quiere copiar)
+$origen = "C:\__________"
+
+# 2. Ruta de destino (donde se guardará la copia)
+$destino = "C:\__________"
+
+# 3. Crear la carpeta de destino si no existe
+if (-not (Test-Path $destino)) {
+    New-Item -ItemType Directory -Path $destino
+}
+
+# 4. Copiar todos los archivos del origen al destino
+Copy-Item -Path $origen\* -Destination $destino -Recurse -Force
+
+# 5. Registrar la fecha y hora del backup en un archivo log
+$fecha = Get-Date -Format "dd/MM/yyyy HH:mm:ss"
+Add-Content -Path "$destino\backup_log.txt" -Value "Copia hecha el $fecha"
+
+Write-Output "Copia completada."
+```
+
+- Debereis guardar este script con el nombre `<nombre>Script.ps1`. Donde `<nombre>` es vuestro nombre.
+- Deberéis programar este script para que se ejecute cada 10 minutos utilizando el Programador de Tareas (Task Scheduler) de Windows.
+- Deberéis entregarme una captura de pantalla de la lista de tareas programadas en la que se vea la tarea que habéis creado. Teniendo la tarea seleccionada para que se vean sus detalles en el panel inferior.
 

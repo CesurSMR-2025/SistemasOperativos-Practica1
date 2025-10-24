@@ -167,3 +167,37 @@ systemctl disable nombre_del_servicio
 Teneis en el archivo "ResumenScripting.pdf" todo lo relativo a este tema.
 
 ## Automatización en Windows
+En Windows, la automatización se realiza principalmente mediante scripts de PowerShell y herramientas del sistema como el Programador de Tareas (Task Scheduler) que permiten programar y ejecutar esas tareas automáticamente, en momentos específicos o en respuesta a eventos del sistema.
+### Permisos
+En Windows, los permisos de archivos y carpetas se gestionan a través del sistema de control de acceso (ACL), que permite definir qué usuarios o grupos tienen permisos específicos sobre un objeto (archivo o carpeta). Los permisos se pueden establecer para permitir o denegar acciones como leer, escribir o ejecutar un archivo.
+Para ver y modificar los permisos de un archivo o carpeta en Windows, se puede hacer clic derecho sobre el objeto, seleccionar "Propiedades" y luego ir a la pestaña "Seguridad". Aquí se pueden ver los permisos actuales y modificarlos según sea necesario.
+### Programador de Tareas (Task Scheduler)
+El Programador de Tareas de Windows permite programar la ejecución de scripts y programas en momentos específicos o en respuesta a eventos del sistema. Para crear una tarea programada, se puede seguir estos pasos:
+1. Abrir el Programador de Tareas (Task Scheduler) desde el menú de inicio.
+2. Seleccionar "Crear Tarea Básica" en el panel derecho.
+3. Seguir el asistente para definir el nombre, la descripción, el desencadenador y la acción a realizar.
+4. Especificar el script o programa que se desea ejecutar.
+5. Finalizar el asistente para crear la tarea.
+
+### PowerShell
+PowerShell es un lenguaje de scripting y una interfaz de línea de comandos desarrollada por Microsoft para la automatización de tareas en sistemas Windows. PowerShell permite a los administradores y usuarios crear scripts para gestionar y automatizar diversas tareas del sistema operativo.
+
+Un script de PowerShell termina con la extensión `.ps1` y puede contener una serie de comandos y funciones que se ejecutan secuencialmente. Por ejemplo, un script simple que imprime "Hola, mundo" en la consola podría verse así:
+
+```powershell
+Write-Host "Hola, mundo"
+```
+
+Para ejecutar un script de PowerShell, se puede abrir la consola de PowerShell y navegar hasta el directorio donde se encuentra el script. Luego, se puede ejecutar el script utilizando el siguiente comando:
+
+```powershell
+.\nombre_del_script.ps1
+```
+Es importante tener en cuenta que, por razones de seguridad, la ejecución de scripts de PowerShell puede estar restringida por la política de ejecución del sistema. Para permitir la ejecución de scripts, se puede cambiar la política de ejecución utilizando el siguiente comando en una consola de PowerShell con privilegios de administrador:
+
+```powershell
+Set-ExecutionPolicy RemoteSigned
+```
+
+Esto permite la ejecución de scripts locales y de scripts descargados de Internet que estén firmados por un editor confiable.
+

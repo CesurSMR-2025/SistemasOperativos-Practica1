@@ -122,7 +122,6 @@ Cron ejecuta estos scripts a través del servicio crond, que se ejecuta en segun
 # Comprobar el estado de crond
 systemctl status crond
 
-
 # Iniciar el servicio crond
 systemctl start crond
 
@@ -150,7 +149,7 @@ ExecStart=/ruta/al/script.sh
 WantedBy=multi-user.target
 ```
 
-Una vez creado el archivo de unidad, se pueden utilizar los siguientes comandos para gestionar el servicio:
+Una vez creado el archivo de servicio, se pueden utilizar los siguientes comandos para gestionar el servicio:
 
 ```bash
 # Iniciar el servicio
@@ -165,14 +164,15 @@ systemctl enable nombre_del_servicio
 # Deshabilitar el inicio automático del servicio
 systemctl disable nombre_del_servicio
 ```
+
+Systemd es una herramienta mas potente y flexible que Cron, ya que permite gestionar servicios completos y responder a eventos del sistema, no solo ejecutar tareas en momentos específicos.
+
 ### Bash
 Teneis en el archivo "ResumenScripting.pdf" todo lo relativo a este tema.
 
 ## Automatización en Windows
-En Windows, la automatización se realiza principalmente mediante scripts de PowerShell y herramientas del sistema como el Programador de Tareas (Task Scheduler) que permiten programar y ejecutar esas tareas automáticamente, en momentos específicos o en respuesta a eventos del sistema.
-### Permisos
-En Windows, los permisos de archivos y carpetas se gestionan a través del sistema de control de acceso (ACL), que permite definir qué usuarios o grupos tienen permisos específicos sobre un objeto (archivo o carpeta). Los permisos se pueden establecer para permitir o denegar acciones como leer, escribir o ejecutar un archivo.
-Para ver y modificar los permisos de un archivo o carpeta en Windows, se puede hacer clic derecho sobre el objeto, seleccionar "Propiedades" y luego ir a la pestaña "Seguridad". Aquí se pueden ver los permisos actuales y modificarlos según sea necesario.
+En Windows, la automatización se realiza principalmente mediante scripts de PowerShell y herramientas del sistema como el Programador de Tareas (Task Scheduler) que permiten programar y ejecutar esas tareas automáticamente, en momentos específicos o en respuesta a eventos del sistema.xw
+
 ### Programador de Tareas (Task Scheduler)
 El Programador de Tareas de Windows permite programar la ejecución de scripts y programas en momentos específicos o en respuesta a eventos del sistema. Para crear una tarea programada, se puede seguir estos pasos:
 1. Abrir el Programador de Tareas (Task Scheduler) desde el menú de inicio.
@@ -202,6 +202,8 @@ Set-ExecutionPolicy RemoteSigned
 ```
 
 Esto permite la ejecución de scripts locales y de scripts descargados de Internet que estén firmados por un editor confiable.
+
+_(Falta añadir cosas sobre PowerShell)_
 
 ## Entrega
 ### Linux
@@ -234,6 +236,7 @@ echo "Copia completada correctamente."
 - Deberéis programar este script para que se ejecute cada 10 minutos utilizando cron.
 - Debereis entregarme una captura de pantalla en la que se vean los permisos del script, mostrando que tiene permiso de ejecución.
 - Deberéis entregarme una captura de pantalla de la configuración del crontab en la que se vea la línea que habéis añadido para programar el script.
+- En las capturas se debera ver el usuario con vuestro nombre.
 
 ### Windows
 - Deberéis crear un script de PowerShell con el siguiente contenido. Reemplazando las rutas de origen y destino por las que queráis utilizar.
@@ -263,4 +266,3 @@ Write-Output "Copia completada."
 - Debereis guardar este script con el nombre `<nombre>Script.ps1`. Donde `<nombre>` es vuestro nombre.
 - Deberéis programar este script para que se ejecute cada 10 minutos utilizando el Programador de Tareas (Task Scheduler) de Windows.
 - Deberéis entregarme una captura de pantalla de la lista de tareas programadas en la que se vea la tarea que habéis creado. Teniendo la tarea seleccionada para que se vean sus detalles en el panel inferior.
-

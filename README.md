@@ -1,4 +1,4 @@
-# Sistemas Operativos en Red - Unidad 1: Automatización
+# Sistemas Operativos en Red - Práctica 1: Automatización
 ## Introducción a la Automatización
 Automatizar tareas consiste en crear scripts (**archivos de texto con comandos**) que el sistema ejecuta automáticamente.
 Sirven para ahorrar tiempo, evitar errores y mantener los sistemas funcionando sin intervención manual. Algunos ejemplos de tareas que se pueden automatizar incluyen la gestión de archivos, la instalación de software y la configuración de servicios.
